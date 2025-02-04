@@ -1,9 +1,13 @@
 import google.generativeai as genai
+import os
+from dotenv import load_dotenv, find_dotenv
 
 if __name__ == '__main__':
-
+    # dotenv_path = find_dotenv()
+    # load_dotenv(dotenv_path)
+    # API_KEY = os.getenv("key")
     # configure gemini AI w/ api key
-    genai.configure(api_key="ENTER API KEY HERE")
+    genai.configure(api_key=API_KEY)
     model = genai.GenerativeModel("gemini-1.5-flash")
 
     job_title = input("Enter the title of a job posting: ")
@@ -11,7 +15,8 @@ if __name__ == '__main__':
     personal_description = input("Enter a description of yourself, including relevant skills: ")
 
     # send query to AI model and store response
-        query = ("Based on these skills, ", personal_description,
+
+    query = ("Based on these skills, ", personal_description,
              ". Create a resume in markdown format for the job, ", job_title,
              ", with a description of ", job_description)
     response = model.generate_content(query)
@@ -20,4 +25,4 @@ if __name__ == '__main__':
 
     with open('resume.md', 'w') as file:
         file.write(response.text)
-    
+
