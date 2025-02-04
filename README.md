@@ -1,3 +1,4 @@
+# When first opening the program first replace the inpute on line 10 to the actual API key
 # After running the program you will first be asked to enter job title
 # You are then asked to provide a description of the job you entered
 # Lastly you are asked to enter relevant personal information to create a personalized resume
