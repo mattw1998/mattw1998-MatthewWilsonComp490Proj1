@@ -1,12 +1,14 @@
 # Matthew Wilson
-# The only libraries I used where 'os' and 'dotenv' to hide the api key from the main file
-# When first opening the program first replace the inpute on line 10 to the actual API key
-# After running the program you will first be asked to enter job title
-# You are then asked to provide a description of the job you entered
-# Lastly you are asked to enter relevant personal information to create a personalized resume
-# The program compiles these inputs in 3 distinct ways, and receives back 3 different resumes
 #
-# I chose this Google's LLM, as I found their api to be very simple to use
-# 
-# From my use of this program I found the 3rd query produced the highest quality resume of the three
-# This query placed the personal skills at the beginning of the query, while the others first gave the job title and description
+# Three libraries are used in this sprint
+# The json library allows for the json files to be read into a list much easier
+# The sqlite3 library allows for sql database creation/editing/querying etc
+# The pytest library allows for easy function testing
+#
+# There is no direct interaction with this program past running it
+# The program has two different methods to read a json file into a list of items based on the formatting of the objects in the file
+# Then an empty database is created (or a connection to it is called if it already exists) with all the attributes that exist from our two json files
+# Because these two json files have different attributes, we use two different functions to populate each into the sql database
+# The changes are then saved into the database and it is closed
+#
+# Was unable to get test 2 to pass
