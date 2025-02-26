@@ -1,5 +1,18 @@
 # Matthew Wilson
+# Sprint 3 README
+# Libary Usage
+# sqlite3 for database creation, updating, pulling
+# PySimpleGUI for gui creation and event handling
+# Pytest to run tests on functions
 #
+# When running the application the program connects to the database and ensures the personal_info table exists
+# Then the GUI is generated and we grab all existing job titles via a sql query
+# Any job can be highlighted and by clicking the 'select' button information about the job is generated on the right side of the GUI
+# On the bottom of the GUI there are text boxes where information can be entered, and by clicking the 'Add' button, is saved to the database
+# NOTE: personal_info table primary key is intended to auto increment as more entries are added, but populates with NULL values only
+
+
+# Sprint 2 README
 # Three libraries are used in this sprint
 # The json library allows for the json files to be read into a list much easier
 # The sqlite3 library allows for sql database creation/editing/querying etc
