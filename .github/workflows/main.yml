@@ -15,6 +15,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: API Secret
+        env:
+          API_KEY: ${{ secrets.LLM_API_KEY }}
+    
       - name: Checkout code
         uses: actions/checkout@v4
 
