@@ -1,4 +1,3 @@
-import pytest
 import main
 import sqlite3
 import os
@@ -88,7 +87,7 @@ def test_Resume_Contains_Keywords():
     else:
         isContained = False
 
-    assert isContained == True
+    assert isContained is True
 
 
 def test_check_empty_string():
