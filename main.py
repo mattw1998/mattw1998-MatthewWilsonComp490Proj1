@@ -23,21 +23,27 @@ def Create_GUI(jobs: list, profiles: list, cursor):
          sg.vtop(sg.Listbox(profiles, size=(30, 5), enable_events=True, select_mode=sg.LISTBOX_SELECT_MODE_SINGLE,
                             key='-PROFILELISTBOX-'))],
 
-        [sg.Button('SELECT'), sg.Push(), sg.Text('Select desired job/profile and click the button to generate a resume'), sg.Button('Generate')],
+        [sg.Button('SELECT'), sg.Push(), sg.Text('Select desired job/profile and click the button to generate a'
+                                                 ' resume'), sg.Button('Generate')],
 
         [sg.Push(), sg.vtop(sg.Text('Generated Resume')), sg.Multiline(key='-RESUME-', size=(60, 8), disabled=True)],
 
         [sg.Push(), sg.Text('Enter a file name and click save to save the file as a PDF'),
-         sg.InputText(key='-FILENAME-', size=(25, 1)), sg.Text('.pdf', font=('Arial', 10, 'italic')), sg.Button('SAVE')],
+         sg.InputText(key='-FILENAME-', size=(25, 1)), sg.Text('.pdf', font=('Arial', 10, 'italic')),
+         sg.Button('SAVE')],
 
         [sg.HorizontalSeparator(color='black', pad=(5, 5))],
 
         [sg.Text('Enter The Following Information and Click Add to Save Your Profile', font=('Arial', 16, 'bold'))],
         [sg.Text('*All Fields Must Contain a Value*', font=('Arial', 10, 'bold'))],
-        [sg.Text('Profile Name'), sg.InputText(key='-PROFILE-', size=(30, 1)), sg.Text('First Name'), sg.InputText(key='-FNAME-', size=(30, 1)), sg.Text('Last Name'), sg.InputText(key='-LNAME-', size=(30, 1))],
-        [sg.Text('Email'), sg.InputText(key='-EMAIL-', size=(40, 1)), sg.Text('Phone Number'), sg.InputText(key='-PHONE-', size=(40, 1))],
-        [sg.Text('Github URL'), sg.InputText(key='-GIT-', size=(50, 1)), sg.Text('Classes Taken'), sg.InputText(key='-CLASSES-', size=(60, 1))],
-        [sg.vtop(sg.Text('Projects')), sg.Multiline(key='-PROJECTS-', size=(50, 5)), sg.vtop(sg.Text('Other Info')), sg.Multiline(key='-INFO-', size=(50, 5))],
+        [sg.Text('Profile Name'), sg.InputText(key='-PROFILE-', size=(30, 1)), sg.Text('First Name'),
+         sg.InputText(key='-FNAME-', size=(30, 1)), sg.Text('Last Name'), sg.InputText(key='-LNAME-', size=(30, 1))],
+        [sg.Text('Email'), sg.InputText(key='-EMAIL-', size=(40, 1)), sg.Text('Phone Number'),
+         sg.InputText(key='-PHONE-', size=(40, 1))],
+        [sg.Text('Github URL'), sg.InputText(key='-GIT-', size=(50, 1)), sg.Text('Classes Taken'),
+         sg.InputText(key='-CLASSES-', size=(60, 1))],
+        [sg.vtop(sg.Text('Projects')), sg.Multiline(key='-PROJECTS-', size=(50, 5)), sg.vtop(sg.Text('Other Info')),
+         sg.Multiline(key='-INFO-', size=(50, 5))],
         [sg.Button('Add')],
 
         [sg.vbottom(sg.StatusBar(key='-STATUS-', text='', size=(250, 1)))]
@@ -79,17 +85,17 @@ def Create_GUI(jobs: list, profiles: list, cursor):
 
         # Add profile to database
         if event == 'Add':
-            info_list = [window['-PROFILE-'].get(), window['-FNAME-'].get(), window['-LNAME-'].get(), window['-EMAIL-'].get(),
-                         window['-PHONE-'].get(), window['-GIT-'].get(), window['-PROJECTS-'].get(),
-                         window['-CLASSES-'].get(), window['-INFO-'].get()]
+            info_list = [window['-PROFILE-'].get(), window['-FNAME-'].get(), window['-LNAME-'].get(),
+                         window['-EMAIL-'].get(), window['-PHONE-'].get(), window['-GIT-'].get(),
+                         window['-PROJECTS-'].get(), window['-CLASSES-'].get(), window['-INFO-'].get()]
 
             # Check all boxes contain text
-            if check_empty_string(info_list) == True:
+            if check_empty_string(info_list):
                 window['-STATUS-'].update('Profile NOT Added, Please Ensure No Fields Are Left Empty')
                 info_list.clear()
 
             # Check for duplicate profile names
-            elif check_profile_exists(info_list[0], cursor) == True:
+            elif check_profile_exists(info_list[0], cursor):
                 window['-STATUS-'].update('Profile NOT Added, Please Choose A Unique Profile Name')
                 info_list.clear()
 
@@ -125,7 +131,6 @@ def Create_GUI(jobs: list, profiles: list, cursor):
             profile_info.append(list(SQL_Profile_Search('Phone_Number', profile_index, cursor)))
             profile_info_fix = Fix_SQL_Return_Strings(profile_info)
 
-
             # Query LLM and create markdown file with resume
             cover_letter, resume = Query_LLM(job=job_info_fix, profile=profile_info_fix, model=model)
             Create_MD_File(cover_letter, resume)
@@ -146,7 +151,7 @@ def Create_GUI(jobs: list, profiles: list, cursor):
                 if file_name == "":
                     window['-STATUS-'].update('Please Enter A File Name Before Saving')
                 else:
-                    if Check_File_Exists(file_name) == True:
+                    if Check_File_Exists(file_name):
                         window['-STATUS-'].update('Please Choose A Unique File Name')
                     else:
                         Markdown_To_PDF(file_name)

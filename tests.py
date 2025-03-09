@@ -22,7 +22,8 @@ def test_SQL_Search():
     connection = sqlite3.connect('job_ads.db')
     cursor = connection.cursor()
     assert list(main.SQL_Job_Search('id', (0,), cursor)) == [('s-GCjOL5C9JmbOP8AAAAAA==',)]
-    assert list(main.SQL_Job_Search('title', (4,), cursor)) == [('Senior Software Development Engineer',)]
+    assert (list(main.SQL_Job_Search('title', (4,), cursor)) ==
+            [('Senior Software Development Engineer',)])
 
 
 # setup for requests.post taken and edited from Google Gemini
@@ -75,7 +76,8 @@ def test_Resume_Contains_Keywords():
     # Check strings containing profile/job info is contained in generated cover letter/resume
     isContained = True
     for i in range(3):
-        if (str(new_profile[i]).lower() in (str(cover_letter)).lower()) or (str(new_profile[i]).lower() in (str(resume)).lower()):
+        if ((str(new_profile[i]).lower() in (str(cover_letter)).lower()) or
+                (str(new_profile[i]).lower() in (str(resume)).lower())):
             pass
         else:
             isContained = False
@@ -91,10 +93,10 @@ def test_Resume_Contains_Keywords():
 
 def test_check_empty_string():
     test = ['', '', '', '']
-    assert main.check_empty_string(test) == True
+    assert main.check_empty_string(test) is True
 
     test = ['aaaa', 'aaaa', 'aaaa', 'aaaa']
-    assert main.check_empty_string(test) == False
+    assert main.check_empty_string(test) is False
 
     test = ['aaaa', 'aaaa', 'aaaa', '']
-    assert main.check_empty_string(test) == True
+    assert main.check_empty_string(test) is True
