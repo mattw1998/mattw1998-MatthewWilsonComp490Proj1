@@ -38,7 +38,7 @@ jobs:
         run: flake8 . --max-line-length=127
 
       - name: Run black (Code Formatter Check)
-        run: black --check --verbose --diff .
+        run: black --check --verbose --diff --color --skip-string-normalization --skip-magic-trailing-comma .
 
       - name: Run pytest (Tests)
         run: pytest
