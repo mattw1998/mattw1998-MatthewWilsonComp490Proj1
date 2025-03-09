@@ -54,20 +54,20 @@ def test_Resume_Contains_Keywords():
     model = main.Configure_LLM()
 
     # Setup test job and profile for resume query
-    job = []
-    job.append(main.SQL_Job_Search('title', (1,), cursor))
-    job.append(main.SQL_Job_Search('description', (1,), cursor))
-    new_job = main.Fix_SQL_Return_Strings(job)
+    job = [main.SQL_Job_Search('title', (1,), cursor),
+           main.SQL_Job_Search('description', (1,), cursor)]
 
-    profile = []
-    profile.append(list(main.SQL_Profile_Search('First_Name', (0,), cursor)))
-    profile.append(list(main.SQL_Profile_Search('Last_Name', (0,), cursor)))
-    profile.append(list(main.SQL_Profile_Search('Github_Link', (0,), cursor)))
-    profile.append(list(main.SQL_Profile_Search('Projects', (0,), cursor)))
-    profile.append(list(main.SQL_Profile_Search('Classes', (0,), cursor)))
-    profile.append(list(main.SQL_Profile_Search('Personal_Info', (0,), cursor)))
-    profile.append(list(main.SQL_Profile_Search('Email', (0,), cursor)))
-    profile.append(list(main.SQL_Profile_Search('Phone_Number', (0,), cursor)))
+    profile = [list(main.SQL_Profile_Search('First_Name', (0,), cursor)),
+               list(main.SQL_Profile_Search('Last_Name', (0,), cursor)),
+               list(main.SQL_Profile_Search('Github_Link', (0,), cursor)),
+               list(main.SQL_Profile_Search('Projects', (0,), cursor)),
+               list(main.SQL_Profile_Search('Classes', (0,), cursor)),
+               list(main.SQL_Profile_Search('Personal_Info', (0,), cursor)),
+               list(main.SQL_Profile_Search('Email', (0,), cursor)),
+               list(main.SQL_Profile_Search('Phone_Number', (0,), cursor))]
+
+    # Remove extra characters on beginning/end of strings
+    new_job = main.Fix_SQL_Return_Strings(job)
     new_profile = main.Fix_SQL_Return_Strings(profile)
 
     cover_letter, resume = main.Query_LLM(new_job, new_profile, model)
