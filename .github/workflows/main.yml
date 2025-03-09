@@ -6,6 +6,9 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - '**/README.md'
+      - '**/job_ads.db'
   pull_request:
     branches:
       - main
