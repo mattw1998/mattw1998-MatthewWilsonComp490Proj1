@@ -1,4 +1,19 @@
 # Matthew Wilson
+# Sprint 4 README
+# Libary Usage
+# sqlite3 for database creation, updating, pulling
+# os and dotenv for storing/hiding/retrieving api key
+# google.generativeai for communicating with Gemini AI
+# markdown_pdf for transforming a markdown file to a pdf
+# PySimpleGUI for gui creation and event handling
+# Pytest to run tests on functions
+#
+# When running the application a GUI is opened that shows a list of jobs to choose from, a list of existing profiles to choose from, and the ability to create new profiles
+# A job can be selected to show more information about the job, or the user can select a job and profile, and generate a personalized resume
+# The resume will then be shown to the user, and they can choose to save the resume as a pdf to the project directory with a name of their choosing
+# The bottom of the GUI window allows the user to create a new profile that will be saved to the database
+
+
 # Sprint 3 README
 # Libary Usage
 # sqlite3 for database creation, updating, pulling
@@ -24,4 +39,3 @@
 # Because these two json files have different attributes, we use two different functions to populate each into the sql database
 # The changes are then saved into the database and it is closed
 #
-# Was unable to get test 2 to pass
