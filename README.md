@@ -1,6 +1,6 @@
 # Matthew Wilson
 # Sprint 4 README
-# Libary Usage
+# Library Usage
 # sqlite3 for database creation, updating, pulling
 # os and dotenv for storing/hiding/retrieving api key
 # google.generativeai for communicating with Gemini AI
@@ -15,7 +15,7 @@
 
 
 # Sprint 3 README
-# Libary Usage
+# Library Usage
 # sqlite3 for database creation, updating, pulling
 # PySimpleGUI for gui creation and event handling
 # Pytest to run tests on functions
