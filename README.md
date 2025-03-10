@@ -12,6 +12,8 @@
 # A job can be selected to show more information about the job, or the user can select a job and profile, and generate a personalized resume
 # The resume will then be shown to the user, and they can choose to save the resume as a pdf to the project directory with a name of their choosing
 # The bottom of the GUI window allows the user to create a new profile that will be saved to the database
+#
+# Tests all pass, however PySimpleGUI seems to be causing an error with pytest inside my workflow despite never being called in my test file
 
 
 # Sprint 3 README
