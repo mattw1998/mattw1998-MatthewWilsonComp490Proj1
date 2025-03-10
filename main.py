@@ -10,42 +10,115 @@ from markdown_pdf import Section
 # Full GUI layout with keys/event calls
 def Create_GUI(job_list: list, profile_list: list, cur):
     layout = [
-        [Sg.vbottom(Sg.Text('Available Jobs', font=('Arial', 16, 'bold'))), Sg.Push(), Sg.Column([
-            [Sg.vtop(Sg.Text('Job Description')), Sg.Multiline(key='-JOB_DESC-', size=(70, 5), disabled=True)],
-            [Sg.Text('Company'), Sg.InputText(key='-COMPANY-', size=(72, 1), readonly=True)],
-            [Sg.Text('Location'), Sg.InputText(key='-LOCATION-', size=(72, 1), readonly=True)],
-            [Sg.Text('Pay Rate'), Sg.InputText(key='-PAY-', disabled=True, size=(72, 1))],
-            [Sg.Text('Job Function'), Sg.InputText(key='-FUNC-', disabled=True, size=(72, 1))]
-        ], justification='right', element_justification='right')],
-
-        [Sg.Listbox(job_list, size=(50, 15), enable_events=True, select_mode=Sg.LISTBOX_SELECT_MODE_SINGLE,
-                    key='-JOBLISTBOX-', horizontal_scroll=True), Sg.Push(), Sg.vtop(Sg.Text('Choose A Profile')),
-         Sg.vtop(Sg.Listbox(profile_list, size=(30, 5), enable_events=True, select_mode=Sg.LISTBOX_SELECT_MODE_SINGLE,
-                            key='-PROFILELISTBOX-'))],
-
-        [Sg.Button('SELECT'), Sg.Push(), Sg.Text('Select desired job/profile and click the button to generate a'
-                                                 ' resume'), Sg.Button('Generate')],
-
-        [Sg.Push(), Sg.vtop(Sg.Text('Generated Resume')), Sg.Multiline(key='-RESUME-', size=(60, 8), disabled=True)],
-
-        [Sg.Push(), Sg.Text('Enter a file name and click save to save the file as a PDF'),
-         Sg.InputText(key='-FILENAME-', size=(25, 1)), Sg.Text('.pdf', font=('Arial', 10, 'italic')),
-         Sg.Button('SAVE')],
+        [
+                        Sg.vbottom(Sg.Text('Available Jobs', font=('Arial', 16, 'bold'))),
+                        Sg.Push(),
+                        Sg.Column(
+                                [
+                                        [
+                                                Sg.vtop(Sg.Text('Job Description')),
+                                                Sg.Multiline(key='-JOB_DESC-', size=(70, 5), disabled=True),
+                                            ],
+                                        [
+                                                Sg.Text('Company'),
+                                                Sg.InputText(key='-COMPANY-', size=(72, 1), readonly=True),
+                                            ],
+                                        [
+                                                Sg.Text('Location'),
+                                                Sg.InputText(key='-LOCATION-', size=(72, 1), readonly=True),
+                                            ],
+                                        [
+                                                Sg.Text('Pay Rate'),
+                                                Sg.InputText(key='-PAY-', disabled=True, size=(72, 1)),
+                                            ],
+                                        [
+                                                Sg.Text('Job Function'),
+                                                Sg.InputText(key='-FUNC-', disabled=True, size=(72, 1)),
+                                            ],
+                                    ],
+                                justification='right',
+                    element_justification='right',
+                ),
+            ],
+            [
+                    Sg.Listbox(
+                            job_list,
+                            size=(50, 15),
+                    enable_events=True,
+                    select_mode=Sg.LISTBOX_SELECT_MODE_SINGLE,
+                    key='-JOBLISTBOX-',
+                    horizontal_scroll=True,
+                ),
+                Sg.Push(),
+                Sg.vtop(Sg.Text('Choose A Profile')),
+                Sg.vtop(
+                        Sg.Listbox(
+                                profile_list,
+                                size=(30, 5),
+                        enable_events=True,
+                        select_mode=Sg.LISTBOX_SELECT_MODE_SINGLE,
+                        key='-PROFILELISTBOX-',
+                    )
+                ),
+            ],
+            [
+                    Sg.Button('SELECT'),
+                    Sg.Push(),
+                    Sg.Text(
+                            'Select desired job/profile and click the button to generate a'
+                            ' resume'
+                        ),
+                    Sg.Button('Generate'),
+                ],
+            [
+                    Sg.Push(),
+                    Sg.vtop(Sg.Text('Generated Resume')),
+                    Sg.Multiline(key='-RESUME-', size=(60, 8), disabled=True),
+                ],
+            [
+                    Sg.Push(),
+                    Sg.Text('Enter a file name and click save to save the file as a PDF'),
+                    Sg.InputText(key='-FILENAME-', size=(25, 1)),
+                    Sg.Text('.pdf', font=('Arial', 10, 'italic')),
+                    Sg.Button('SAVE'),
+                ],
 
         [Sg.HorizontalSeparator(color='black', pad=(5, 5))],
 
-        [Sg.Text('Enter The Following Information and Click Add to Save Your Profile', font=('Arial', 16, 'bold'))],
+        [
+            Sg.Text(
+                'Enter The Following Information and Click Add to Save Your Profile',
+                font=('Arial', 16, 'bold')
+            )
+        ],
         [Sg.Text('*All Fields Must Contain a Value*', font=('Arial', 10, 'bold'))],
-        [Sg.Text('Profile Name'), Sg.InputText(key='-PROFILE-', size=(30, 1)), Sg.Text('First Name'),
-         Sg.InputText(key='-FNAME-', size=(30, 1)), Sg.Text('Last Name'), Sg.InputText(key='-LNAME-', size=(30, 1))],
-        [Sg.Text('Email'), Sg.InputText(key='-EMAIL-', size=(40, 1)), Sg.Text('Phone Number'),
-         Sg.InputText(key='-PHONE-', size=(40, 1))],
-        [Sg.Text('Github URL'), Sg.InputText(key='-GIT-', size=(50, 1)), Sg.Text('Classes Taken'),
-         Sg.InputText(key='-CLASSES-', size=(60, 1))],
-        [Sg.vtop(Sg.Text('Projects')), Sg.Multiline(key='-PROJECTS-', size=(50, 5)), Sg.vtop(Sg.Text('Other Info')),
-         Sg.Multiline(key='-INFO-', size=(50, 5))],
+        [
+                        Sg.Text('Profile Name'),
+                        Sg.InputText(key='-PROFILE-', size=(30, 1)),
+                        Sg.Text('First Name'),
+                        Sg.InputText(key='-FNAME-', size=(30, 1)),
+                        Sg.Text('Last Name'),
+                        Sg.InputText(key='-LNAME-', size=(30, 1)),
+                    ],
+                [
+                        Sg.Text('Email'),
+                        Sg.InputText(key='-EMAIL-', size=(40, 1)),
+                        Sg.Text('Phone Number'),
+                        Sg.InputText(key='-PHONE-', size=(40, 1)),
+                    ],
+                [
+                        Sg.Text('Github URL'),
+                        Sg.InputText(key='-GIT-', size=(50, 1)),
+                        Sg.Text('Classes Taken'),
+                        Sg.InputText(key='-CLASSES-', size=(60, 1)),
+                    ],
+                [
+                        Sg.vtop(Sg.Text('Projects')),
+                        Sg.Multiline(key='-PROJECTS-', size=(50, 5)),
+                        Sg.vtop(Sg.Text('Other Info')),
+                        Sg.Multiline(key='-INFO-', size=(50, 5)),
+                    ],
         [Sg.Button('Add')],
-
         [Sg.vbottom(Sg.StatusBar(key='-STATUS-', text='', size=(250, 1)))]
     ]
 
@@ -74,38 +147,56 @@ def Create_GUI(job_list: list, profile_list: list, cur):
                 location = SQL_Job_Search('location', index, cur)
                 window['-LOCATION-'].update(location)
 
-                pay = SQL_Job_Search('salary_range, interval, min_amount, max_amount', index, cur)
+                pay = SQL_Job_Search(
+                    'salary_range, interval, min_amount, max_amount', index, cur
+                )
                 window['-PAY-'].update(pay)
 
                 job_func = SQL_Job_Search('job_function', index, cur)
                 window['-FUNC-'].update(job_func)
 
             except IndexError:
-                window['-STATUS-'].update('Please Choose A Job From The List Before Clicking, "SELECT"')
+                window['-STATUS-'].update(
+                    'Please Choose A Job From The List Before Clicking, "SELECT"'
+                )
 
         # Add profile to database
         if event == 'Add':
-            info_list = [window['-PROFILE-'].get(), window['-FNAME-'].get(), window['-LNAME-'].get(),
-                         window['-EMAIL-'].get(), window['-PHONE-'].get(), window['-GIT-'].get(),
-                         window['-PROJECTS-'].get(), window['-CLASSES-'].get(), window['-INFO-'].get()]
+            info_list = [
+                window['-PROFILE-'].get(),
+                window['-FNAME-'].get(),
+                window['-LNAME-'].get(),
+                window['-EMAIL-'].get(),
+                window['-PHONE-'].get(),
+                window['-GIT-'].get(),
+                window['-PROJECTS-'].get(),
+                window['-CLASSES-'].get(),
+                window['-INFO-'].get()
+            ]
 
             # Check all boxes contain text
             if check_empty_string(info_list):
-                window['-STATUS-'].update('Profile NOT Added, Please Ensure No Fields Are Left Empty')
+                window['-STATUS-'].update(
+                    'Profile NOT Added, Please Ensure No Fields Are Left Empty'
+                )
                 info_list.clear()
 
             # Check for duplicate profile names
             elif check_profile_exists(info_list[0], cur):
-                window['-STATUS-'].update('Profile NOT Added, Please Choose A Unique Profile Name')
+                window['-STATUS-'].update(
+                    'Profile NOT Added, Please Choose A Unique Profile Name'
+                )
                 info_list.clear()
 
             else:
                 SQL_Add(info_list, cur)
                 connection.commit()
                 info_list.clear()
-                window['-PROFILE-'].update(""), window['-FNAME-'].update(""), window['-LNAME-'].update(""),
-                window['-EMAIL-'].update(""), window['-PHONE-'].update(""), window['-GIT-'].update(""),
-                window['-CLASSES-'].update(""), window['-PROJECTS-'].update(""), window['-INFO-'].update("")
+                window['-PROFILE-'].update(""), window['-FNAME-'].update("")
+                window['-LNAME-'].update(""), window['-EMAIL-'].update("")
+                window['-PHONE-'].update(""), window['-GIT-'].update("")
+                window['-CLASSES-'].update(""), window['-PROJECTS-'].update("")
+                window['-INFO-'].update("")
                 window['-STATUS-'].update('Profile Added to Database')
                 window['-PROFILELISTBOX-'].update(Refresh_Profile_List(cur))
 
@@ -121,18 +212,36 @@ def Create_GUI(job_list: list, profile_list: list, cur):
             job_info_fix = Fix_SQL_Return_Strings(job_info)
 
             profile_index = window['-PROFILELISTBOX-'].get_indexes()
-            profile_info.append(list(SQL_Profile_Search('First_Name', profile_index, cur)))
-            profile_info.append(list(SQL_Profile_Search('Last_Name', profile_index, cur)))
-            profile_info.append(list(SQL_Profile_Search('Github_Link', profile_index, cur)))
-            profile_info.append(list(SQL_Profile_Search('Projects', profile_index, cur)))
-            profile_info.append(list(SQL_Profile_Search('Classes', profile_index, cur)))
-            profile_info.append(list(SQL_Profile_Search('Personal_Info', profile_index, cur)))
-            profile_info.append(list(SQL_Profile_Search('Email', profile_index, cur)))
-            profile_info.append(list(SQL_Profile_Search('Phone_Number', profile_index, cur)))
+            profile_info.append(
+                list(SQL_Profile_Search('First_Name', profile_index, cur))
+            )
+            profile_info.append(
+                list(SQL_Profile_Search('Last_Name', profile_index, cur))
+            )
+            profile_info.append(
+                list(SQL_Profile_Search('Github_Link', profile_index, cur))
+            )
+            profile_info.append(
+                list(SQL_Profile_Search('Projects', profile_index, cur))
+            )
+            profile_info.append(
+                list(SQL_Profile_Search('Classes', profile_index, cur))
+            )
+            profile_info.append(
+                list(SQL_Profile_Search('Personal_Info', profile_index, cur))
+            )
+            profile_info.append(
+                list(SQL_Profile_Search('Email', profile_index, cur))
+            )
+            profile_info.append(
+                list(SQL_Profile_Search('Phone_Number', profile_index, cur))
+            )
             profile_info_fix = Fix_SQL_Return_Strings(profile_info)
 
             # Query LLM and create markdown file with resume
-            cover_letter, resume = Query_LLM(job=job_info_fix, profile=profile_info_fix, llm_model=model)
+            cover_letter, resume = Query_LLM(
+                job=job_info_fix, profile=profile_info_fix, llm_model=model
+            )
             Create_MD_File(cover_letter, resume)
 
             window['-RESUME-'].update("")
@@ -156,9 +265,13 @@ def Create_GUI(job_list: list, profile_list: list, cur):
                     else:
                         Markdown_To_PDF(file_name)
             except FileNotFoundError:
-                window['-STATUS-'].update('You Must First Generate A Resume Before Trying To Save')
+                window['-STATUS-'].update(
+                    'You Must First Generate A Resume Before Trying To Save'
+                )
             except OSError:
-                window['-STATUS-'].update('Please Enter A Valid File Name (alphanumeric characters only)')
+                window['-STATUS-'].update(
+                    'Please Enter A Valid File Name (alphanumeric characters only)'
+                )
 
     window.close()
 
@@ -182,7 +295,8 @@ def check_profile_exists(profile_name, cur):
 
 # Table creation for personal info
 def create_personal_info_table(cur):
-    cur.execute('''
+    cur.execute(
+        '''
     CREATE TABLE IF NOT EXISTS personal_info (
     Profile_Name VARCHAR(20) PRIMARY KEY not null,
     First_Name VARCHAR(30),
@@ -194,7 +308,8 @@ def create_personal_info_table(cur):
     Classes VARCHAR(255),
     Personal_Info VARCHAR(255)
     )
-    ''')
+    '''
+    )
 
 
 # Searches job table for given attribute by row id
@@ -219,8 +334,10 @@ def SQL_Profile_Search(column_name, row_id, cur):
 
 # Add personal info to table
 def SQL_Add(info_list: list, cur):
-    insert_statement = ('INSERT INTO personal_info (Profile_Name, First_Name, Last_Name, Email, Phone_Number,'
-                        ' Github_Link, Projects, Classes, Personal_Info) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)')
+    insert_statement = (
+        'INSERT INTO personal_info (Profile_Name, First_Name, Last_Name, Email, Phone_Number,'
+        ' Github_Link, Projects, Classes, Personal_Info) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)'
+    )
     try:
         cur.execute(insert_statement, info_list)
     except sqlite3.Error:
@@ -251,14 +368,18 @@ def Configure_LLM():
 
 
 def Query_LLM(job: list, profile: list, llm_model):
-    query = (f"Return me a brief cover letter for a resume in markdown format including, my name {profile[0]} "
-             f"{profile[1]}, my Github url {profile[2]}, my email {profile[6]}, and my phone number {profile[7]}")
+    query = (
+        f"Return me a brief cover letter for a resume in markdown format including, my name {profile[0]} "
+        f"{profile[1]}, my Github url {profile[2]}, my email {profile[6]}, and my phone number {profile[7]}"
+    )
     cover_letter = llm_model.generate_content(query)
 
-    query = (f"Return me a body for a job resume in markdown format based only on the following job description and personal "
-             f"information provided to you. The job title is {job[0]}, with the description, {job[1]}. My notable "
-             f"projects completed are: {profile[3]}. The classes I have taken are: {profile[4]}. Other information that"
-             f" should be included: {profile[5]}.")
+    query = (
+        f"Return me a body for a job resume in markdown format based only on the following job description and personal "
+        f"information provided to you. The job title is {job[0]}, with the description, {job[1]}. My notable "
+        f"projects completed are: {profile[3]}. The classes I have taken are: {profile[4]}. Other information that"
+        f" should be included: {profile[5]}."
+    )
     resume = llm_model.generate_content(query)
     return cover_letter.text, resume.text
 
@@ -305,7 +426,9 @@ if __name__ == '__main__':
     create_personal_info_table(cursor)
 
     job_titles = list(cursor.execute('Select title FROM jobs'))
-    profiles = list(cursor.execute('SELECT Profile_Name FROM personal_info ORDER BY rowid'))
+    profiles = list(
+        cursor.execute('SELECT Profile_Name FROM personal_info ORDER BY rowid')
+    )
     Create_GUI(job_titles, profiles, cursor)
 
     Save_Database()
