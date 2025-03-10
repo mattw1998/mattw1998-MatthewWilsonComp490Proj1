@@ -14,30 +14,30 @@ def test_SQL_Add():
     assert result == [('1', '2', '3', '4', '5', '6', '7', '8', '9')]
     main.SQL_Add(
         [
-        'doug',
-        'doug',
-        'douglas',
-        'doug@gmail.com',
-        '12345',
-        '111222333',
-        'aa',
-        'aa',
-        'aa'
+            'doug',
+            'doug',
+            'douglas',
+            'doug@gmail.com',
+            '12345',
+            '111222333',
+            'aa',
+            'aa',
+            'aa'
         ],
         cursor,
     )
     result = list(cursor.execute(query))
     assert result == [
         (
-        'doug',
-        'doug',
-        'douglas',
-        'doug@gmail.com',
-        '12345',
-        '111222333',
-        'aa',
-        'aa',
-        'aa',
+            'doug',
+            'doug',
+            'douglas',
+            'doug@gmail.com',
+            '12345',
+            '111222333',
+            'aa',
+            'aa',
+            'aa',
         )
     ]
 
@@ -98,7 +98,7 @@ def test_Resume_Contains_Keywords():
     isContained = True
     for i in range(3):
         if (str(new_profile[i]).lower() in (str(cover_letter)).lower()) or (
-                str(new_profile[i]).lower() in (str(resume)).lower()
+            str(new_profile[i]).lower() in (str(resume)).lower()
         ):
             pass
         else:

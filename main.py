@@ -11,53 +11,53 @@ from markdown_pdf import Section
 def Create_GUI(job_list: list, profile_list: list, cur):
     layout = [
         [
-                Sg.vbottom(Sg.Text('Available Jobs', font=('Arial', 16, 'bold'))),
-                Sg.Push(),
-                Sg.Column(
-                        [
-                                [
-                                        Sg.vtop(Sg.Text('Job Description')),
-                                        Sg.Multiline(key='-JOB_DESC-', size=(70, 5), disabled=True),
-                                    ],
-                                [
-                                        Sg.Text('Company'),
-                                        Sg.InputText(key='-COMPANY-', size=(72, 1), readonly=True),
-                                    ],
-                                [
-                                        Sg.Text('Location'),
-                                        Sg.InputText(key='-LOCATION-', size=(72, 1), readonly=True),
-                                    ],
-                                [
-                                        Sg.Text('Pay Rate'),
-                                        Sg.InputText(key='-PAY-', disabled=True, size=(72, 1)),
-                                    ],
-                                [
-                                        Sg.Text('Job Function'),
-                                        Sg.InputText(key='-FUNC-', disabled=True, size=(72, 1)),
-                                    ],
-                            ],
-                        justification='right',
-                        element_justification='right',
-        ),
-    ],
-    [
-        Sg.Listbox(
+            Sg.vbottom(Sg.Text('Available Jobs', font=('Arial', 16, 'bold'))),
+            Sg.Push(),
+            Sg.Column(
+                [
+                    [
+                        Sg.vtop(Sg.Text('Job Description')),
+                        Sg.Multiline(key='-JOB_DESC-', size=(70, 5), disabled=True),
+                    ],
+                    [
+                        Sg.Text('Company'),
+                        Sg.InputText(key='-COMPANY-', size=(72, 1), readonly=True),
+                    ],
+                    [
+                        Sg.Text('Location'),
+                        Sg.InputText(key='-LOCATION-', size=(72, 1), readonly=True),
+                    ],
+                    [
+                        Sg.Text('Pay Rate'),
+                        Sg.InputText(key='-PAY-', disabled=True, size=(72, 1)),
+                    ],
+                    [
+                        Sg.Text('Job Function'),
+                        Sg.InputText(key='-FUNC-', disabled=True, size=(72, 1)),
+                    ],
+                ],
+                justification='right',
+                element_justification='right',
+            ),
+        ],
+        [
+            Sg.Listbox(
                 job_list,
                 size=(50, 15),
                 enable_events=True,
                 select_mode=Sg.LISTBOX_SELECT_MODE_SINGLE,
                 key='-JOBLISTBOX-',
                 horizontal_scroll=True,
-                ),
-        Sg.Push(),
-        Sg.vtop(Sg.Text('Choose A Profile')),
-        Sg.vtop(
+            ),
+            Sg.Push(),
+            Sg.vtop(Sg.Text('Choose A Profile')),
+            Sg.vtop(
                 Sg.Listbox(
-                        profile_list,
-                        size=(30, 5),
-                        enable_events=True,
-                        select_mode=Sg.LISTBOX_SELECT_MODE_SINGLE,
-                        key='-PROFILELISTBOX-',
+                    profile_list,
+                    size=(30, 5),
+                    enable_events=True,
+                    select_mode=Sg.LISTBOX_SELECT_MODE_SINGLE,
+                    key='-PROFILELISTBOX-',
                 )
             ),
         ],
@@ -65,9 +65,9 @@ def Create_GUI(job_list: list, profile_list: list, cur):
             Sg.Button('SELECT'),
             Sg.Push(),
             Sg.Text(
-                    'Select desired job/profile and click the button to generate a'
-                    ' resume'
-                ),
+                'Select desired job/profile and click the button to generate a'
+                ' resume'
+            ),
             Sg.Button('Generate'),
         ],
         [
