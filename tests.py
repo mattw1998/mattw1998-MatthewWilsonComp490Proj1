@@ -1,5 +1,12 @@
-from main import (SQL_Add, SQL_Job_Search, SQL_Profile_Search, Configure_LLM, Fix_SQL_Return_Strings, Query_LLM,
-                  check_empty_string)
+from main import (
+    SQL_Add,
+    SQL_Job_Search,
+    SQL_Profile_Search,
+    Configure_LLM,
+    Fix_SQL_Return_Strings,
+    Query_LLM,
+    check_empty_string,
+)
 import sqlite3
 import os
 from dotenv import load_dotenv, find_dotenv
@@ -46,9 +53,7 @@ def test_SQL_Add():
 def test_SQL_Search():
     connection = sqlite3.connect('job_ads.db')
     cursor = connection.cursor()
-    assert list(SQL_Job_Search('id', (0,), cursor)) == [
-        ('s-GCjOL5C9JmbOP8AAAAAA==',)
-    ]
+    assert list(SQL_Job_Search('id', (0,), cursor)) == [('s-GCjOL5C9JmbOP8AAAAAA==',)]
     assert list(SQL_Job_Search('title', (4,), cursor)) == [
         ('Senior Software Development Engineer',)
     ]
