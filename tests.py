@@ -1,4 +1,5 @@
-import main
+from main import (SQL_Add, SQL_Job_Search, SQL_Profile_Search, Configure_LLM, Fix_SQL_Return_Strings, Query_LLM,
+                  check_empty_string)
 import sqlite3
 import os
 from dotenv import load_dotenv, find_dotenv
@@ -8,11 +9,11 @@ import requests
 def test_SQL_Add():
     connection = sqlite3.connect('job_ads.db')
     cursor = connection.cursor()
-    main.SQL_Add(['1', '2', '3', '4', '5', '6', '7', '8', '9'], cursor)
+    SQL_Add(['1', '2', '3', '4', '5', '6', '7', '8', '9'], cursor)
     query = "SELECT * FROM personal_info ORDER BY rowid DESC LIMIT 1"
     result = list(cursor.execute(query))
     assert result == [('1', '2', '3', '4', '5', '6', '7', '8', '9')]
-    main.SQL_Add(
+    SQL_Add(
         [
             'doug',
             'doug',
@@ -45,10 +46,10 @@ def test_SQL_Add():
 def test_SQL_Search():
     connection = sqlite3.connect('job_ads.db')
     cursor = connection.cursor()
-    assert list(main.SQL_Job_Search('id', (0,), cursor)) == [
+    assert list(SQL_Job_Search('id', (0,), cursor)) == [
         ('s-GCjOL5C9JmbOP8AAAAAA==',)
     ]
-    assert list(main.SQL_Job_Search('title', (4,), cursor)) == [
+    assert list(SQL_Job_Search('title', (4,), cursor)) == [
         ('Senior Software Development Engineer',)
     ]
 
@@ -69,30 +70,30 @@ def test_LLM_HTTP_Reponse():
 def test_Resume_Contains_Keywords():
     connection = sqlite3.connect('job_ads.db')
     cursor = connection.cursor()
-    model = main.Configure_LLM()
+    model = Configure_LLM()
 
     # Setup test job and profile for resume query
     job = [
-        main.SQL_Job_Search('title', (1,), cursor),
-        main.SQL_Job_Search('description', (1,), cursor),
+        SQL_Job_Search('title', (1,), cursor),
+        SQL_Job_Search('description', (1,), cursor),
     ]
 
     profile = [
-        list(main.SQL_Profile_Search('First_Name', (0,), cursor)),
-        list(main.SQL_Profile_Search('Last_Name', (0,), cursor)),
-        list(main.SQL_Profile_Search('Github_Link', (0,), cursor)),
-        list(main.SQL_Profile_Search('Projects', (0,), cursor)),
-        list(main.SQL_Profile_Search('Classes', (0,), cursor)),
-        list(main.SQL_Profile_Search('Personal_Info', (0,), cursor)),
-        list(main.SQL_Profile_Search('Email', (0,), cursor)),
-        list(main.SQL_Profile_Search('Phone_Number', (0,), cursor)),
+        list(SQL_Profile_Search('First_Name', (0,), cursor)),
+        list(SQL_Profile_Search('Last_Name', (0,), cursor)),
+        list(SQL_Profile_Search('Github_Link', (0,), cursor)),
+        list(SQL_Profile_Search('Projects', (0,), cursor)),
+        list(SQL_Profile_Search('Classes', (0,), cursor)),
+        list(SQL_Profile_Search('Personal_Info', (0,), cursor)),
+        list(SQL_Profile_Search('Email', (0,), cursor)),
+        list(SQL_Profile_Search('Phone_Number', (0,), cursor)),
     ]
 
     # Remove extra characters on beginning/end of strings
-    new_job = main.Fix_SQL_Return_Strings(job)
-    new_profile = main.Fix_SQL_Return_Strings(profile)
+    new_job = Fix_SQL_Return_Strings(job)
+    new_profile = Fix_SQL_Return_Strings(profile)
 
-    cover_letter, resume = main.Query_LLM(new_job, new_profile, model)
+    cover_letter, resume = Query_LLM(new_job, new_profile, model)
 
     # Check strings containing profile/job info is contained in generated cover letter/resume
     isContained = True
@@ -117,10 +118,10 @@ def test_Resume_Contains_Keywords():
 
 def test_check_empty_string():
     test = ['', '', '', '']
-    assert main.check_empty_string(test) is True
+    assert check_empty_string(test) is True
 
     test = ['aaaa', 'aaaa', 'aaaa', 'aaaa']
-    assert main.check_empty_string(test) is False
+    assert check_empty_string(test) is False
 
     test = ['aaaa', 'aaaa', 'aaaa', '']
-    assert main.check_empty_string(test) is True
+    assert check_empty_string(test) is True
