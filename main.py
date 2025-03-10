@@ -11,115 +11,115 @@ from markdown_pdf import Section
 def Create_GUI(job_list: list, profile_list: list, cur):
     layout = [
         [
-                        Sg.vbottom(Sg.Text('Available Jobs', font=('Arial', 16, 'bold'))),
-                        Sg.Push(),
-                        Sg.Column(
-                                [
-                                        [
-                                                Sg.vtop(Sg.Text('Job Description')),
-                                                Sg.Multiline(key='-JOB_DESC-', size=(70, 5), disabled=True),
-                                            ],
-                                        [
-                                                Sg.Text('Company'),
-                                                Sg.InputText(key='-COMPANY-', size=(72, 1), readonly=True),
-                                            ],
-                                        [
-                                                Sg.Text('Location'),
-                                                Sg.InputText(key='-LOCATION-', size=(72, 1), readonly=True),
-                                            ],
-                                        [
-                                                Sg.Text('Pay Rate'),
-                                                Sg.InputText(key='-PAY-', disabled=True, size=(72, 1)),
-                                            ],
-                                        [
-                                                Sg.Text('Job Function'),
-                                                Sg.InputText(key='-FUNC-', disabled=True, size=(72, 1)),
-                                            ],
-                                    ],
-                                justification='right',
-                    element_justification='right',
-                ),
-            ],
-            [
-                    Sg.Listbox(
-                            job_list,
-                            size=(50, 15),
-                    enable_events=True,
-                    select_mode=Sg.LISTBOX_SELECT_MODE_SINGLE,
-                    key='-JOBLISTBOX-',
-                    horizontal_scroll=True,
-                ),
+                Sg.vbottom(Sg.Text('Available Jobs', font=('Arial', 16, 'bold'))),
                 Sg.Push(),
-                Sg.vtop(Sg.Text('Choose A Profile')),
-                Sg.vtop(
-                        Sg.Listbox(
-                                profile_list,
-                                size=(30, 5),
+                Sg.Column(
+                        [
+                                [
+                                        Sg.vtop(Sg.Text('Job Description')),
+                                        Sg.Multiline(key='-JOB_DESC-', size=(70, 5), disabled=True),
+                                    ],
+                                [
+                                        Sg.Text('Company'),
+                                        Sg.InputText(key='-COMPANY-', size=(72, 1), readonly=True),
+                                    ],
+                                [
+                                        Sg.Text('Location'),
+                                        Sg.InputText(key='-LOCATION-', size=(72, 1), readonly=True),
+                                    ],
+                                [
+                                        Sg.Text('Pay Rate'),
+                                        Sg.InputText(key='-PAY-', disabled=True, size=(72, 1)),
+                                    ],
+                                [
+                                        Sg.Text('Job Function'),
+                                        Sg.InputText(key='-FUNC-', disabled=True, size=(72, 1)),
+                                    ],
+                            ],
+                        justification='right',
+                        element_justification='right',
+        ),
+    ],
+    [
+        Sg.Listbox(
+                job_list,
+                size=(50, 15),
+                enable_events=True,
+                select_mode=Sg.LISTBOX_SELECT_MODE_SINGLE,
+                key='-JOBLISTBOX-',
+                horizontal_scroll=True,
+                ),
+        Sg.Push(),
+        Sg.vtop(Sg.Text('Choose A Profile')),
+        Sg.vtop(
+                Sg.Listbox(
+                        profile_list,
+                        size=(30, 5),
                         enable_events=True,
                         select_mode=Sg.LISTBOX_SELECT_MODE_SINGLE,
                         key='-PROFILELISTBOX-',
-                    )
+                )
+            ),
+        ],
+        [
+            Sg.Button('SELECT'),
+            Sg.Push(),
+            Sg.Text(
+                    'Select desired job/profile and click the button to generate a'
+                    ' resume'
                 ),
-            ],
-            [
-                    Sg.Button('SELECT'),
-                    Sg.Push(),
-                    Sg.Text(
-                            'Select desired job/profile and click the button to generate a'
-                            ' resume'
-                        ),
-                    Sg.Button('Generate'),
-                ],
-            [
-                    Sg.Push(),
-                    Sg.vtop(Sg.Text('Generated Resume')),
-                    Sg.Multiline(key='-RESUME-', size=(60, 8), disabled=True),
-                ],
-            [
-                    Sg.Push(),
-                    Sg.Text('Enter a file name and click save to save the file as a PDF'),
-                    Sg.InputText(key='-FILENAME-', size=(25, 1)),
-                    Sg.Text('.pdf', font=('Arial', 10, 'italic')),
-                    Sg.Button('SAVE'),
-                ],
+            Sg.Button('Generate'),
+        ],
+        [
+            Sg.Push(),
+            Sg.vtop(Sg.Text('Generated Resume')),
+            Sg.Multiline(key='-RESUME-', size=(60, 8), disabled=True),
+        ],
+        [
+            Sg.Push(),
+            Sg.Text('Enter a file name and click save to save the file as a PDF'),
+            Sg.InputText(key='-FILENAME-', size=(25, 1)),
+            Sg.Text('.pdf', font=('Arial', 10, 'italic')),
+            Sg.Button('SAVE'),
+        ],
 
         [Sg.HorizontalSeparator(color='black', pad=(5, 5))],
 
         [
             Sg.Text(
                 'Enter The Following Information and Click Add to Save Your Profile',
-                font=('Arial', 16, 'bold')
+                font=('Arial', 16, 'bold'),
             )
         ],
         [Sg.Text('*All Fields Must Contain a Value*', font=('Arial', 10, 'bold'))],
         [
-                        Sg.Text('Profile Name'),
-                        Sg.InputText(key='-PROFILE-', size=(30, 1)),
-                        Sg.Text('First Name'),
-                        Sg.InputText(key='-FNAME-', size=(30, 1)),
-                        Sg.Text('Last Name'),
-                        Sg.InputText(key='-LNAME-', size=(30, 1)),
-                    ],
-                [
-                        Sg.Text('Email'),
-                        Sg.InputText(key='-EMAIL-', size=(40, 1)),
-                        Sg.Text('Phone Number'),
-                        Sg.InputText(key='-PHONE-', size=(40, 1)),
-                    ],
-                [
-                        Sg.Text('Github URL'),
-                        Sg.InputText(key='-GIT-', size=(50, 1)),
-                        Sg.Text('Classes Taken'),
-                        Sg.InputText(key='-CLASSES-', size=(60, 1)),
-                    ],
-                [
-                        Sg.vtop(Sg.Text('Projects')),
-                        Sg.Multiline(key='-PROJECTS-', size=(50, 5)),
-                        Sg.vtop(Sg.Text('Other Info')),
-                        Sg.Multiline(key='-INFO-', size=(50, 5)),
-                    ],
+            Sg.Text('Profile Name'),
+            Sg.InputText(key='-PROFILE-', size=(30, 1)),
+            Sg.Text('First Name'),
+            Sg.InputText(key='-FNAME-', size=(30, 1)),
+            Sg.Text('Last Name'),
+            Sg.InputText(key='-LNAME-', size=(30, 1)),
+        ],
+        [
+            Sg.Text('Email'),
+            Sg.InputText(key='-EMAIL-', size=(40, 1)),
+            Sg.Text('Phone Number'),
+            Sg.InputText(key='-PHONE-', size=(40, 1)),
+        ],
+        [
+            Sg.Text('Github URL'),
+            Sg.InputText(key='-GIT-', size=(50, 1)),
+            Sg.Text('Classes Taken'),
+            Sg.InputText(key='-CLASSES-', size=(60, 1)),
+        ],
+        [
+            Sg.vtop(Sg.Text('Projects')),
+            Sg.Multiline(key='-PROJECTS-', size=(50, 5)),
+            Sg.vtop(Sg.Text('Other Info')),
+            Sg.Multiline(key='-INFO-', size=(50, 5)),
+        ],
         [Sg.Button('Add')],
-        [Sg.vbottom(Sg.StatusBar(key='-STATUS-', text='', size=(250, 1)))]
+        [Sg.vbottom(Sg.StatusBar(key='-STATUS-', text='', size=(250, 1)))],
     ]
 
     # Apply layout to GUI and open
@@ -171,7 +171,7 @@ def Create_GUI(job_list: list, profile_list: list, cur):
                 window['-GIT-'].get(),
                 window['-PROJECTS-'].get(),
                 window['-CLASSES-'].get(),
-                window['-INFO-'].get()
+                window['-INFO-'].get(),
             ]
 
             # Check all boxes contain text
@@ -224,15 +224,11 @@ def Create_GUI(job_list: list, profile_list: list, cur):
             profile_info.append(
                 list(SQL_Profile_Search('Projects', profile_index, cur))
             )
-            profile_info.append(
-                list(SQL_Profile_Search('Classes', profile_index, cur))
-            )
+            profile_info.append(list(SQL_Profile_Search('Classes', profile_index, cur)))
             profile_info.append(
                 list(SQL_Profile_Search('Personal_Info', profile_index, cur))
             )
-            profile_info.append(
-                list(SQL_Profile_Search('Email', profile_index, cur))
-            )
+            profile_info.append(list(SQL_Profile_Search('Email', profile_index, cur)))
             profile_info.append(
                 list(SQL_Profile_Search('Phone_Number', profile_index, cur))
             )
