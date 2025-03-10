@@ -82,9 +82,7 @@ def Create_GUI(job_list: list, profile_list: list, cur):
             Sg.Text('.pdf', font=('Arial', 10, 'italic')),
             Sg.Button('SAVE'),
         ],
-
         [Sg.HorizontalSeparator(color='black', pad=(5, 5))],
-
         [
             Sg.Text(
                 'Enter The Following Information and Click Add to Save Your Profile',

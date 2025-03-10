@@ -22,7 +22,7 @@ def test_SQL_Add():
             '111222333',
             'aa',
             'aa',
-            'aa'
+            'aa',
         ],
         cursor,
     )
