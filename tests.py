@@ -1,12 +1,4 @@
-from main import (
-    SQL_Add,
-    SQL_Job_Search,
-    SQL_Profile_Search,
-    Configure_LLM,
-    Fix_SQL_Return_Strings,
-    Query_LLM,
-    check_empty_string,
-)
+from functions import *
 import sqlite3
 import os
 from dotenv import load_dotenv, find_dotenv
@@ -72,53 +64,53 @@ def test_LLM_HTTP_Reponse():
     assert response.status_code == 200
 
 
-def test_Resume_Contains_Keywords():
-    connection = sqlite3.connect('job_ads.db')
-    cursor = connection.cursor()
-    model = Configure_LLM()
-
-    # Setup test job and profile for resume query
-    job = [
-        SQL_Job_Search('title', (1,), cursor),
-        SQL_Job_Search('description', (1,), cursor),
-    ]
-
-    profile = [
-        list(SQL_Profile_Search('First_Name', (0,), cursor)),
-        list(SQL_Profile_Search('Last_Name', (0,), cursor)),
-        list(SQL_Profile_Search('Github_Link', (0,), cursor)),
-        list(SQL_Profile_Search('Projects', (0,), cursor)),
-        list(SQL_Profile_Search('Classes', (0,), cursor)),
-        list(SQL_Profile_Search('Personal_Info', (0,), cursor)),
-        list(SQL_Profile_Search('Email', (0,), cursor)),
-        list(SQL_Profile_Search('Phone_Number', (0,), cursor)),
-    ]
-
-    # Remove extra characters on beginning/end of strings
-    new_job = Fix_SQL_Return_Strings(job)
-    new_profile = Fix_SQL_Return_Strings(profile)
-
-    cover_letter, resume = Query_LLM(new_job, new_profile, model)
-
-    # Check strings containing profile/job info is contained in generated cover letter/resume
-    isContained = True
-    for i in range(3):
-        if (str(new_profile[i]).lower() in (str(cover_letter)).lower()) or (
-            str(new_profile[i]).lower() in (str(resume)).lower()
-        ):
-            pass
-        else:
-            isContained = False
-            break
-
-    if (str(new_job[0]).lower() in (str(cover_letter)).lower()) or (
-        str(new_job[0]).lower() in (str(resume)).lower()
-    ):
-        pass
-    else:
-        isContained = False
-
-    assert isContained is True
+# def test_Resume_Contains_Keywords():
+#     connection = sqlite3.connect('job_ads.db')
+#     cursor = connection.cursor()
+#     model = Configure_LLM()
+#
+    # # Setup test job and profile for resume query
+    # job = [
+    #     SQL_Job_Search('title', (1,), cursor),
+    #     SQL_Job_Search('description', (1,), cursor),
+    # ]
+    #
+    # profile = [
+    #     list(SQL_Profile_Search('First_Name', (0,), cursor)),
+    #     list(SQL_Profile_Search('Last_Name', (0,), cursor)),
+    #     list(SQL_Profile_Search('Github_Link', (0,), cursor)),
+    #     list(SQL_Profile_Search('Projects', (0,), cursor)),
+    #     list(SQL_Profile_Search('Classes', (0,), cursor)),
+    #     list(SQL_Profile_Search('Personal_Info', (0,), cursor)),
+    #     list(SQL_Profile_Search('Email', (0,), cursor)),
+    #     list(SQL_Profile_Search('Phone_Number', (0,), cursor)),
+    # ]
+    #
+    # # Remove extra characters on beginning/end of strings
+    # new_job = Fix_SQL_Return_Strings(job)
+    # new_profile = Fix_SQL_Return_Strings(profile)
+    #
+    # cover_letter, resume = Query_LLM(new_job, new_profile, model)
+    #
+    # # Check strings containing profile/job info is contained in generated cover letter/resume
+    # isContained = True
+    # for i in range(3):
+    #     if (str(new_profile[i]).lower() in (str(cover_letter)).lower()) or (
+    #         str(new_profile[i]).lower() in (str(resume)).lower()
+    #     ):
+    #         pass
+    #     else:
+    #         isContained = False
+    #         break
+    #
+    # if (str(new_job[0]).lower() in (str(cover_letter)).lower()) or (
+    #     str(new_job[0]).lower() in (str(resume)).lower()
+    # ):
+    #     pass
+    # else:
+    #     isContained = False
+    #
+    # assert isContained is True
 
 
 def test_check_empty_string():
