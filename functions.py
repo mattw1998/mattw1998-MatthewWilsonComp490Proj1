@@ -6,6 +6,7 @@ from dotenv import load_dotenv, find_dotenv
 from markdown_pdf import MarkdownPdf
 from markdown_pdf import Section
 
+
 # Full GUI layout with keys/event calls
 def Create_GUI(jobs: list, profiles: list, cursor, connection, model):
     layout = [
@@ -232,9 +233,9 @@ def Create_GUI(jobs: list, profiles: list, cursor, connection, model):
             profile_info_fix = Fix_SQL_Return_Strings(profile_info)
 
             # Query LLM and create markdown file with resume
-            cover_letter, resume = Query_LLM(
-                job=job_info_fix, profile=profile_info_fix, llm_model=model
-            )
+            cl_query = Cover_Letter_Query(job_info=job_info_fix, profile_info=profile_info_fix)
+            resume_query = Resume_Query(profile_info=profile_info_fix)
+            cover_letter, resume = Query_LLM(cover_letter_query=cl_query, resume_query=resume_query, llm_model=model)
             Create_MD_File(cover_letter, resume)
 
             window['-RESUME-'].update("")
@@ -360,20 +361,28 @@ def Configure_LLM():
     return llm_model
 
 
-def Query_LLM(job: list, profile: list, llm_model):
+def Cover_Letter_Query(job_info: list, profile_info: list) -> str:
     query = (
-        f"Return me a brief cover letter for a resume in markdown format including, my name {profile[0]} "
-        f"{profile[1]}, my Github url {profile[2]}, my email {profile[6]}, and my phone number {profile[7]}"
+        f"Return me a cover letter for a resume in markdown format based on a job with the title: {job_info[0]}, and a"
+        f" description: {job_info[1]}. Also include any provided personal information that could be relevant, my name:"
+        f" {profile_info[0]} {profile_info[1]}, Personal projects: {profile_info[3]}."
     )
-    cover_letter = llm_model.generate_content(query)
+    return query
 
+
+def Resume_Query(profile_info: list) -> str:
     query = (
-        f"Return me a body for a job resume in markdown format based only on the following job description and personal "
-        f"information provided to you. The job title is {job[0]}, with the description, {job[1]}. My notable "
-        f"projects completed are: {profile[3]}. The classes I have taken are: {profile[4]}. Other information that"
-        f" should be included: {profile[5]}."
+        f"Return me a job resume in markdown format based only on the following personal information provided to you."
+        f"My name is: {profile_info[0]} {profile_info[1]}. My notable projects completed are: {profile_info[3]}. The "
+        f"classes I have taken are: {profile_info[4]}. My Github link is: {profile_info[2]}. My email is:"
+        f" {profile_info[6]}. Other information that should be included: {profile_info[5]}."
     )
-    resume = llm_model.generate_content(query)
+    return query
+
+
+def Query_LLM(cover_letter_query: str, resume_query: str, llm_model):
+    cover_letter = llm_model.generate_content(cover_letter_query)
+    resume = llm_model.generate_content(resume_query)
     return cover_letter.text, resume.text
 
 
